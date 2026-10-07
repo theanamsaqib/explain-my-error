@@ -1,0 +1,45 @@
+# Development / demo setup for the college project.
+#   docker compose up --build
+#   frontend  http://localhost:3000
+#   backend   http://localhost:8000/docs
+#
+# Put your key in a .env file next to this file (see .env.example).
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      MAX_ATTEMPTS: ${MAX_ATTEMPTS:-3}
+      # Inside the container, "subprocess" is the practical choice: the container is the sandbox.
+      EXECUTION_BACKEND: subprocess
+      EXECUTION_TIMEOUT: ${EXECUTION_TIMEOUT:-5}
+      MAX_OUTPUT_SIZE: ${MAX_OUTPUT_SIZE:-10000}
+      DATABASE_URL: sqlite:///./data/debug_history.db
+      CORS_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
+    volumes:
+      - debug-history:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  debug-history:

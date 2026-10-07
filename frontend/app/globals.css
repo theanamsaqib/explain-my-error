@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Theme: dark developer-IDE. Charcoal surfaces, one amber accent,
+   green / red reserved for pass / fail.
+   Token names follow shadcn/ui so `npx shadcn add ...` components fit in.
+   --------------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+  --background: #0b0b0d;
+  --foreground: #e7e7ea;
+  --card: #111114;
+  --card-foreground: #e7e7ea;
+  --elevated: #17171b;
+  --popover: #141418;
+  --popover-foreground: #e7e7ea;
+  --primary: #f5b14a;
+  --primary-foreground: #1b1206;
+  --secondary: #1d1d22;
+  --secondary-foreground: #e7e7ea;
+  --muted: #1a1a1f;
+  --muted-foreground: #8d8d98;
+  --accent: #23232a;
+  --accent-foreground: #f4f4f6;
+  --destructive: #f87171;
+  --success: #4ade80;
+  --border: #25252c;
+  --input: #2b2b33;
+  --ring: #f5b14a;
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-elevated: var(--elevated);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  background:
+    radial-gradient(1200px 500px at 85% -10%, rgba(245, 177, 74, 0.06), transparent 60%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(245, 177, 74, 0.28);
+}
+
+/* slim dark scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #33333c transparent;
+}
+
+/* blinking caret next to the subtitle: the one playful touch */
+@keyframes eme-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.eme-caret {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--primary);
+  animation: eme-blink 1.1s steps(1) infinite;
+}
+
+@keyframes eme-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.eme-pulse {
+  animation: eme-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes eme-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.eme-rise {
+  animation: eme-rise 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eme-caret, .eme-pulse, .eme-rise { animation: none; }
+}
+
+/* Monaco: highlight the lines the agent flagged as the root cause */
+.eme-error-line {
+  background: rgba(248, 113, 113, 0.13);
+  border-left: 2px solid #f87171;
+}
+.eme-error-glyph {
+  background: #f87171;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 9999px;
+  margin-left: 6px;
+  margin-top: 7px;
+}

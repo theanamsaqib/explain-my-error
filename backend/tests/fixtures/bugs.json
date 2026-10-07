@@ -1,0 +1,257 @@
+[
+  {
+    "id": "index_error_basic",
+    "category": "IndexError",
+    "title": "Loop runs one past the end of a list",
+    "expected_error_type": "IndexError",
+    "accepted_types": [
+      "indexerror"
+    ],
+    "error_kind": "exception",
+    "code": "numbers = [1, 2, 3]\n\nfor i in range(len(numbers) + 1):\n    print(numbers[i])\n",
+    "expected_output": "1\n2\n3",
+    "reference_fix": "numbers = [1, 2, 3]\n\nfor i in range(len(numbers)):\n    print(numbers[i])\n"
+  },
+  {
+    "id": "type_error_concat",
+    "category": "TypeError",
+    "title": "Concatenating str and int",
+    "expected_error_type": "TypeError",
+    "accepted_types": [
+      "typeerror"
+    ],
+    "error_kind": "exception",
+    "code": "age = 25\nmessage = \"I am \" + age + \" years old\"\nprint(message)\n",
+    "expected_output": "I am 25 years old",
+    "reference_fix": "age = 25\nmessage = \"I am \" + str(age) + \" years old\"\nprint(message)\n"
+  },
+  {
+    "id": "key_error_typo",
+    "category": "KeyError",
+    "title": "Misspelled dictionary key",
+    "expected_error_type": "KeyError",
+    "accepted_types": [
+      "keyerror"
+    ],
+    "error_kind": "exception",
+    "code": "inventory = {\"apples\": 5, \"bananas\": 3}\ntotal = inventory[\"apples\"] + inventory[\"banana\"]\nprint(total)\n",
+    "expected_output": "8",
+    "reference_fix": "inventory = {\"apples\": 5, \"bananas\": 3}\ntotal = inventory[\"apples\"] + inventory[\"bananas\"]\nprint(total)\n"
+  },
+  {
+    "id": "name_error_typo",
+    "category": "NameError",
+    "title": "Variable name typo",
+    "expected_error_type": "NameError",
+    "accepted_types": [
+      "nameerror"
+    ],
+    "error_kind": "exception",
+    "code": "total_price = 100\ndiscount = 10\nfinal_price = total_price - discount\nprint(final_prce)\n",
+    "expected_output": "90",
+    "reference_fix": "total_price = 100\ndiscount = 10\nfinal_price = total_price - discount\nprint(final_price)\n"
+  },
+  {
+    "id": "value_error_int",
+    "category": "ValueError",
+    "title": "int() on a decimal string",
+    "expected_error_type": "ValueError",
+    "accepted_types": [
+      "valueerror"
+    ],
+    "error_kind": "exception",
+    "code": "raw = \"3.14\"\nradius = int(raw)\nprint(radius * 2)\n",
+    "expected_output": "6.28",
+    "reference_fix": "raw = \"3.14\"\nradius = float(raw)\nprint(radius * 2)\n"
+  },
+  {
+    "id": "attribute_error_list",
+    "category": "AttributeError",
+    "title": "Calling push() on a list",
+    "expected_error_type": "AttributeError",
+    "accepted_types": [
+      "attributeerror"
+    ],
+    "error_kind": "exception",
+    "code": "fruits = [\"apple\", \"banana\"]\nfruits.push(\"cherry\")\nprint(fruits)\n",
+    "expected_output": "['apple', 'banana', 'cherry']",
+    "reference_fix": "fruits = [\"apple\", \"banana\"]\nfruits.append(\"cherry\")\nprint(fruits)\n"
+  },
+  {
+    "id": "zero_division_counter",
+    "category": "ZeroDivisionError",
+    "title": "Counter is never incremented",
+    "expected_error_type": "ZeroDivisionError",
+    "accepted_types": [
+      "zerodivisionerror"
+    ],
+    "error_kind": "exception",
+    "code": "total = 0\ncount = 0\nfor n in [10, 20, 30]:\n    total += n\naverage = total / count\nprint(average)\n",
+    "expected_output": "20.0",
+    "reference_fix": "total = 0\ncount = 0\nfor n in [10, 20, 30]:\n    total += n\n    count += 1\naverage = total / count\nprint(average)\n"
+  },
+  {
+    "id": "syntax_error_colon",
+    "category": "SyntaxError",
+    "title": "Missing colon after def",
+    "expected_error_type": "SyntaxError",
+    "accepted_types": [
+      "syntaxerror"
+    ],
+    "error_kind": "exception",
+    "code": "def greet(name)\n    print(\"Hello, \" + name)\n\ngreet(\"Sam\")\n",
+    "expected_output": "Hello, Sam",
+    "reference_fix": "def greet(name):\n    print(\"Hello, \" + name)\n\ngreet(\"Sam\")\n"
+  },
+  {
+    "id": "off_by_one_slice",
+    "category": "Off-by-one",
+    "title": "Slice starts one element too early",
+    "expected_error_type": "LogicError",
+    "accepted_types": [
+      "logicerror",
+      "logic",
+      "wrong output",
+      "incorrect output",
+      "off-by-one",
+      "offbyone",
+      "assertion"
+    ],
+    "error_kind": "wrong_output",
+    "code": "def last_n(items, n):\n    return items[len(items) - n - 1:]\n\nprint(last_n([1, 2, 3, 4, 5], 2))\n",
+    "expected_output": "[4, 5]",
+    "reference_fix": "def last_n(items, n):\n    return items[len(items) - n:]\n\nprint(last_n([1, 2, 3, 4, 5], 2))\n"
+  },
+  {
+    "id": "wrong_conditional_adult",
+    "category": "Wrong conditional",
+    "title": "> instead of >=",
+    "expected_error_type": "LogicError",
+    "accepted_types": [
+      "logicerror",
+      "logic",
+      "wrong output",
+      "incorrect output",
+      "off-by-one",
+      "offbyone",
+      "assertion"
+    ],
+    "error_kind": "wrong_output",
+    "code": "def is_adult(age):\n    # 18 and older counts as an adult\n    if age > 18:\n        return True\n    return False\n\nprint(is_adult(18))\nprint(is_adult(25))\n",
+    "expected_output": "True\nTrue",
+    "reference_fix": "def is_adult(age):\n    # 18 and older counts as an adult\n    if age >= 18:\n        return True\n    return False\n\nprint(is_adult(18))\nprint(is_adult(25))\n"
+  },
+  {
+    "id": "infinite_loop_no_increment",
+    "category": "Infinite loop",
+    "title": "Loop variable never changes",
+    "expected_error_type": "TimeoutError",
+    "accepted_types": [
+      "timeouterror",
+      "timeout",
+      "infinite"
+    ],
+    "error_kind": "timeout",
+    "code": "total = 0\ni = 1\nwhile i <= 5:\n    total += i\nprint(total)\n",
+    "expected_output": "15",
+    "reference_fix": "total = 0\ni = 1\nwhile i <= 5:\n    total += i\n    i += 1\nprint(total)\n"
+  },
+  {
+    "id": "list_mutation_while_iterating",
+    "category": "Incorrect list mutation",
+    "title": "Removing items while iterating",
+    "expected_error_type": "LogicError",
+    "accepted_types": [
+      "logicerror",
+      "logic",
+      "wrong output",
+      "incorrect output",
+      "off-by-one",
+      "offbyone",
+      "assertion"
+    ],
+    "error_kind": "wrong_output",
+    "code": "numbers = [2, 4, 6, 7]\nfor n in numbers:\n    if n % 2 == 0:\n        numbers.remove(n)\nprint(numbers)  # should keep only the odd numbers\n",
+    "expected_output": "[7]",
+    "reference_fix": "numbers = [2, 4, 6, 7]\nnumbers = [n for n in numbers if n % 2 != 0]\nprint(numbers)  # should keep only the odd numbers\n"
+  },
+  {
+    "id": "missing_return",
+    "category": "Missing return",
+    "title": "Function forgets to return",
+    "expected_error_type": "TypeError",
+    "accepted_types": [
+      "typeerror"
+    ],
+    "error_kind": "exception",
+    "code": "def square(x):\n    result = x * x\n\nvalue = square(4)\nprint(value + 1)\n",
+    "expected_output": "17",
+    "reference_fix": "def square(x):\n    result = x * x\n    return result\n\nvalue = square(4)\nprint(value + 1)\n"
+  },
+  {
+    "id": "dict_nested_access",
+    "category": "Incorrect dictionary access",
+    "title": "Nested key read from the wrong level",
+    "expected_error_type": "KeyError",
+    "accepted_types": [
+      "keyerror"
+    ],
+    "error_kind": "exception",
+    "code": "student = {\"name\": \"Ravi\", \"marks\": {\"math\": 90, \"physics\": 85}}\nprint(student[\"math\"])\n",
+    "expected_output": "90",
+    "reference_fix": "student = {\"name\": \"Ravi\", \"marks\": {\"math\": 90, \"physics\": 85}}\nprint(student[\"marks\"][\"math\"])\n"
+  },
+  {
+    "id": "wrong_function_args",
+    "category": "Wrong function arguments",
+    "title": "Extra argument in a call",
+    "expected_error_type": "TypeError",
+    "accepted_types": [
+      "typeerror"
+    ],
+    "error_kind": "exception",
+    "code": "def power(base, exponent):\n    return base ** exponent\n\n# 2 to the power of 3\nprint(power(2, 3, 4))\n",
+    "expected_output": "8",
+    "reference_fix": "def power(base, exponent):\n    return base ** exponent\n\n# 2 to the power of 3\nprint(power(2, 3))\n"
+  },
+  {
+    "id": "unbound_local",
+    "category": "UnboundLocalError",
+    "title": "Modifying a global without declaring it",
+    "expected_error_type": "UnboundLocalError",
+    "accepted_types": [
+      "unboundlocalerror"
+    ],
+    "error_kind": "exception",
+    "code": "counter = 0\n\ndef increment():\n    counter += 1\n    return counter\n\nprint(increment())\n",
+    "expected_output": "1",
+    "reference_fix": "counter = 0\n\ndef increment():\n    global counter\n    counter += 1\n    return counter\n\nprint(increment())\n"
+  },
+  {
+    "id": "import_error_name",
+    "category": "ImportError",
+    "title": "Importing a name that does not exist",
+    "expected_error_type": "ImportError",
+    "accepted_types": [
+      "importerror"
+    ],
+    "error_kind": "exception",
+    "code": "from math import squareroot\n\nprint(squareroot(16))\n",
+    "expected_output": "4.0",
+    "reference_fix": "from math import sqrt\n\nprint(sqrt(16))\n"
+  },
+  {
+    "id": "chained_two_bugs",
+    "category": "Chained bugs (retry demo)",
+    "title": "Fixing the first bug reveals a second one",
+    "expected_error_type": "IndexError",
+    "accepted_types": [
+      "indexerror"
+    ],
+    "error_kind": "exception",
+    "code": "marks = {\"name\": \"Asha\", \"scores\": [80, 90, 100]}\n\ntotal = 0\nfor i in range(len(marks[\"scores\"]) + 1):\n    total += marks[\"scores\"][i]\n\naverage = total / marks[\"count\"]\nprint(average)\n",
+    "expected_output": "90.0",
+    "naive_fix": "marks = {\"name\": \"Asha\", \"scores\": [80, 90, 100]}\n\ntotal = 0\nfor i in range(len(marks[\"scores\"])):\n    total += marks[\"scores\"][i]\n\naverage = total / marks[\"count\"]\nprint(average)\n",
+    "reference_fix": "marks = {\"name\": \"Asha\", \"scores\": [80, 90, 100]}\n\ntotal = 0\nfor i in range(len(marks[\"scores\"])):\n    total += marks[\"scores\"][i]\n\naverage = total / len(marks[\"scores\"])\nprint(average)\n"
+  }
+]
