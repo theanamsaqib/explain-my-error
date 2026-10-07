@@ -346,36 +346,3 @@ executes and observes can find it.
 5. **A "teach me" mode** that gives a hint first and only reveals the fix after an attempt.
 6. **Spaced repetition over the concepts** collected in history — the data is already stored.
 7. **Streaming token output** for explanations, as the agent writes them.
-
-## 17. Notes for the presentation
-
-Three demos, in this order:
-
-1. **Explain** — the `IndexError` example, style on *CS Student*. Point out that `analyze_code`
-   ran first and that the editor highlights line 3 (the `range`), not line 4 where Python
-   reported the crash: the root cause, not the symptom.
-2. **Fix (one attempt)** — same bug, click *Fix My Code*. Show the attempt card, the diff, the
-   green **FIX VERIFIED**, then "Why Did My Fix Work?".
-3. **Fix (two attempts)** — load **"Two bugs: first fix fails (retry demo)"**. This is the one
-   that matters. Attempt 1 fails with `KeyError: 'count'`, the "Agent observed" box appears, the
-   agent re-analyzes and attempt 2 passes. Say the line out loud: *a single LLM call could not
-   have found the second bug, because it only became visible after the first fix ran.*
-
-Then open the **Agent tool calls** list to show the real sequence, and have
-`docs/agent-workflow.md` open for the architecture question.
-
-Two questions to be ready for:
-
-- *"How do you know the fix is correct?"* — The sandbox exit code, plus an exact stdout match when
-  an expected output is set. Then concede the limitation honestly: a coincidentally-correct fix
-  would pass, which is why generating assertions is the first thing on the future-work list.
-- *"Why not LangGraph?"* — One agent, three tools, one loop. The Agents SDK expresses that
-  directly; a graph framework would add concepts without removing code.
-
-Have the offline scripted-LLM mode ready as a backup in case the venue's network or your API quota
-fails mid-demo.
-
----
-
-*Built as a final-year Generative AI / Agentic AI project. Development/educational software, not a
-production code-execution service.*
